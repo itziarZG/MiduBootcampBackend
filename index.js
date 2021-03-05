@@ -7,8 +7,8 @@ server.use(cors())
 server.use(express.json())
 
 // init express app
-
-const serverPort = 3001
+const serverPort = process.env.PORT || 3001
+// const serverPort = 3001
 server.listen(serverPort, () => {
   console.log(`listening at localhost:${serverPort}`)
 })
