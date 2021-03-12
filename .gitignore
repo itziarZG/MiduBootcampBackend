@@ -2,16 +2,11 @@
 
 # dependencies
 .env
-node_modules
-node_modules
-/node_modules
 /.pnp
 .pnp.js
 /template
-*/node_modules
-/part1/anecdotes/node_modules
-/part1/courseinfo/node_modules
-/part1/unicafe/node_modules
+front/node_modules
+
 
 # testing
 /coverage
