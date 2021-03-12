@@ -22,8 +22,6 @@ server.listen(serverPort, () => {
 const staticServerPath = './build' // ruta relativa del proyecto
 server.use(express.static(staticServerPath))
 
-const people = []
-
 // ENDPOINTS
 // listado ALL personas GET
 server.get('/api/persons', (req, res) => {
