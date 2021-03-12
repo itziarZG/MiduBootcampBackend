@@ -1,2 +1,2 @@
 # MiduBootcampBackend 
-Exercises with NodeJS, Express, MongoDB
+Exercise with NodeJS, Express, MongoDB

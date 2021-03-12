@@ -1,0 +1,17 @@
+.home {
+  margin: 20px;
+}
+.error {
+  height: 50px;
+  background-color: rgba(128, 128, 128, 0.466);
+  text-align: center;
+  line-height: 1.5;
+}
+.error_red {
+  border: 1px solid red;
+  color: red;
+}
+.error_green {
+  border: 1px solid green;
+  color: green;
+}
