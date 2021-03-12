@@ -9,7 +9,7 @@
     "dev": "nodemon index.js",
     "build:ui": "rm -rf build && cd ../../osa2/materiaali/notes-new && npm run build --prod && cp -r build ../../../osa3/notes-backend/",
     "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",    
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
   "proxy": "http://localhost:3001",
@@ -36,6 +36,7 @@
     "nodemon": "2.0",
     "prettier": "2.2.1",
     "standard": "16.0.3"
+    
   },
   "eslintConfig": {
     "extends": [

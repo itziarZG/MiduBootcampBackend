@@ -2,11 +2,12 @@
 
 # dependencies
 .env
+*/node_modules
 /.pnp
 .pnp.js
 /template
 front/node_modules
-
+backend/node_modules
 
 # testing
 /coverage
