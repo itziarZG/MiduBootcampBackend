@@ -5,6 +5,7 @@ require('./mongo') // already connected
 const PhoneItem = require('./models/Phonebook')
 const notFound = require('./middleware/notFound.js')
 const handleErrors = require('./middleware/handleErrors.js')
+const { response } = require('express')
 
 // Create server
 const server = express()
@@ -12,9 +13,9 @@ server.use(cors())
 server.use(express.json())
 
 // init express app
-const serverPort = process.env.PORT
-// const serverPort = 3001
-server.listen(serverPort, () => {
+const serverPort = process.env.PORT || 3001
+
+const theServer = server.listen(serverPort, () => {
   console.log(`listening at localhost:${serverPort}`)
 })
 
@@ -24,12 +25,20 @@ server.use(express.static(staticServerPath))
 
 // ENDPOINTS
 // listado ALL personas GET
-server.get('/api/persons', (req, res) => {
-  PhoneItem.find({}).then((items) => res.json(items))
+// server.get('/api/persons', (req, res, next) => {
+//   PhoneItem.find({})
+//     .then((items) => res.json(items))
+//     .catch((err) => next(err))
+// })
+
+//CON ASYNC AWAIT para que se vea en código síncrono.
+server.get('/api/persons', async (req, res) => {
+  const persons = await PhoneItem.find({})
+  res.json(persons)
 })
 
-// POST add Persons
-server.post('/api/persons', (req, res) => {
+// POST add Persons con ASYNC-AWAIT
+server.post('/api/persons', async (req, res, next) => {
   const pers = req.body
   if (!pers) {
     return res.status(400).json({
@@ -44,22 +53,27 @@ server.post('/api/persons', (req, res) => {
       error: 'phone missing',
     })
   } else {
-    // if (findit) res.status(400).json({ error: 'name must be unique' })
-    // else {
-    const oneItem = new PhoneItem({
+    const newPers = new PhoneItem({
       name: pers.name,
       number: pers.number,
     })
 
-    oneItem
-      .save()
-      .then((savedPers) => {
-        res.json(savedPers)
-      })
-      .catch((err) => console.log(err))
+    // newPers
+    //   .save()
+    //   .then((savedPers) => {
+    //     res.json(savedPers)
+    //   })
+    //   .catch((err) => console.log(err))
+    try {
+      const savedPers = await newPers.save()
+      res.json(savedPers)
+    } catch (err) {
+      next(err)
+    }
   }
   // }
 })
+
 // PUT Update
 server.put('/api/persons/:id', (req, res, next) => {
   const { id } = req.params
@@ -124,3 +138,5 @@ server.get('/info', (req, res) => {
 // Middleware errores
 server.use(notFound)
 server.use(handleErrors)
+
+module.exports = { server, theServer }
